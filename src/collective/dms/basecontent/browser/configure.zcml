@@ -18,6 +18,11 @@
       image="static/img/dmsdocument_icon.png"
       />
 
+  <browser:resource
+      name="extedit_icon.png"
+      image="static/img/extedit_icon.png"
+      />
+
   <browser:page
       for="collective.dms.basecontent.dmsdocument.IDmsDocument"
       name="view"

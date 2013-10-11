@@ -148,7 +148,7 @@ class ExternalEditColumn(IconColumn, LinkColumn):
     header = u""
     weight = 3
     linkName = "@@external_edit"
-    iconName = "extedit_icon.png"
+    iconName = "++resource++extedit_icon.png"
     linkContent = PMF(u"Edit with external application")
 
     def actionAvailable(self, item):
