@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-01-09 07:42+0000\n"
+"POT-Creation-Date: 2013-10-12 10:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,27 +15,27 @@ msgstr ""
 "Domain: plone\n"
 "X-is-fallback-for: nl-be nl-nl\n"
 
-#: ./profiles/default/types/dmsappendixfile.xml
+#: ../profiles/default/types/dmsappendixfile.xml
 msgid "Dms appendix file of a Dms document"
 msgstr ""
 
-#: ./profiles/default/types/dmsdocument.xml
+#: ../profiles/default/types/dmsdocument.xml
 msgid "Dms base document"
 msgstr ""
 
-#: ./profiles/default/types/dmsmainfile.xml
-msgid "Dms main file of an Dms document"
+#: ../profiles/default/types/dmsmainfile.xml
+msgid "Dms main file of a Dms document"
 msgstr ""
 
-#: ./profiles/default/types/dmsappendixfile.xml
+#: ../profiles/default/types/dmsappendixfile.xml
 msgid "DmsAppendixFile"
 msgstr ""
 
-#: ./profiles/default/types/dmsdocument.xml
+#: ../profiles/default/types/dmsdocument.xml
 msgid "DmsDocument"
 msgstr ""
 
-#: ./profiles/default/types/dmsmainfile.xml
+#: ../profiles/default/types/dmsmainfile.xml
 msgid "DmsMainFile"
 msgstr ""
 

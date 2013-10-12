@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.dms.basecontent\n"
-"POT-Creation-Date: 2013-10-09 07:03+0000\n"
+"POT-Creation-Date: 2013-10-12 10:10+0000\n"
 "PO-Revision-Date: 2013-10-09 09:04+0100\n"
 "Last-Translator: Cédric Messiant <cedric.messiant@gmail.com>\n"
 "Language-Team: Ecréall\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-is-fallback-for: fr-fr fr-be fr-ca\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: ../browser/viewlets.py:55
+#: ../browser/viewlets.py:60
 msgid "Appendix"
 msgstr "Annexes"
 
@@ -48,11 +48,12 @@ msgstr "Fichier"
 msgid "Incoming mail"
 msgstr "courrier entrant"
 
-#: ../browser/viewlets.py:96
+#: ../browser/viewlets.py:101
 msgid "Informations"
 msgstr "Transmissions pour information"
 
-#: ../browser/listing.py:164 ../dmsfile.py:38
+#: ../browser/listing.py:164
+#: ../dmsfile.py:38
 msgid "Label"
 msgstr "Intitulé"
 
@@ -60,7 +61,7 @@ msgstr "Intitulé"
 msgid "Notes"
 msgstr "Notes"
 
-#: ../browser/viewlets.py:78
+#: ../browser/viewlets.py:83
 msgid "Opinion applications"
 msgstr "Demandes d'avis"
 
@@ -84,31 +85,31 @@ msgstr "Destinataire"
 msgid "Signed version"
 msgstr "Version signée"
 
-#: ../browser/viewlets.py:69
+#: ../browser/viewlets.py:74
 msgid "Tasks"
 msgstr "Tâches"
 
-#: ../browser/viewlets.py:56
+#: ../browser/viewlets.py:61
 msgid "There is no appendix for this document."
 msgstr "Il n'y a aucune annexe."
 
-#: ../browser/viewlets.py:97
+#: ../browser/viewlets.py:102
 msgid "There is no informations for this document."
 msgstr "Il n'y a aucune transmission pour information."
 
-#: ../browser/viewlets.py:79
+#: ../browser/viewlets.py:84
 msgid "There is no opinion applications for this document."
 msgstr "Il n'y a aucune demande d'avis."
 
-#: ../browser/viewlets.py:70
+#: ../browser/viewlets.py:75
 msgid "There is no task for this document."
 msgstr "Il n'y a aucune tâche."
 
-#: ../browser/viewlets.py:88
+#: ../browser/viewlets.py:93
 msgid "There is no validation applications for this document."
 msgstr "Il n'y a aucune demande de validation"
 
-#: ../browser/viewlets.py:43
+#: ../browser/viewlets.py:48
 msgid "There is no version note for this document."
 msgstr "Il n'y a aucun fichier ged."
 
@@ -120,7 +121,7 @@ msgstr "À lire"
 msgid "Treating groups"
 msgstr "Services en charge du traitement"
 
-#: ../browser/viewlets.py:87
+#: ../browser/viewlets.py:92
 msgid "Validation applications"
 msgstr "Demandes de validation"
 
@@ -128,6 +129,7 @@ msgstr "Demandes de validation"
 msgid "Version number"
 msgstr "Numéro de version"
 
-#: ../browser/viewlets.py:42
+#: ../browser/viewlets.py:47
 msgid "Versions"
 msgstr "Versions"
+

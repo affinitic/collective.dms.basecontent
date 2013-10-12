@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-10-09 07:03+0000\n"
+"POT-Creation-Date: 2013-10-12 10:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Domain: collective.dms.basecontent\n"
 "X-is-fallback-for: en-au en-ca en-gb en-us\n"
 
-#: ../browser/viewlets.py:55
+#: ../browser/viewlets.py:60
 msgid "Appendix"
 msgstr ""
 
@@ -47,7 +47,7 @@ msgstr ""
 msgid "Incoming mail"
 msgstr ""
 
-#: ../browser/viewlets.py:96
+#: ../browser/viewlets.py:101
 msgid "Informations"
 msgstr ""
 
@@ -60,7 +60,7 @@ msgstr ""
 msgid "Notes"
 msgstr ""
 
-#: ../browser/viewlets.py:78
+#: ../browser/viewlets.py:83
 msgid "Opinion applications"
 msgstr ""
 
@@ -84,31 +84,31 @@ msgstr ""
 msgid "Signed version"
 msgstr ""
 
-#: ../browser/viewlets.py:69
+#: ../browser/viewlets.py:74
 msgid "Tasks"
 msgstr ""
 
-#: ../browser/viewlets.py:56
+#: ../browser/viewlets.py:61
 msgid "There is no appendix for this document."
 msgstr ""
 
-#: ../browser/viewlets.py:97
+#: ../browser/viewlets.py:102
 msgid "There is no informations for this document."
 msgstr ""
 
-#: ../browser/viewlets.py:79
+#: ../browser/viewlets.py:84
 msgid "There is no opinion applications for this document."
 msgstr ""
 
-#: ../browser/viewlets.py:70
+#: ../browser/viewlets.py:75
 msgid "There is no task for this document."
 msgstr ""
 
-#: ../browser/viewlets.py:88
+#: ../browser/viewlets.py:93
 msgid "There is no validation applications for this document."
 msgstr ""
 
-#: ../browser/viewlets.py:43
+#: ../browser/viewlets.py:48
 msgid "There is no version note for this document."
 msgstr ""
 
@@ -120,7 +120,7 @@ msgstr ""
 msgid "Treating groups"
 msgstr ""
 
-#: ../browser/viewlets.py:87
+#: ../browser/viewlets.py:92
 msgid "Validation applications"
 msgstr ""
 
@@ -128,7 +128,7 @@ msgstr ""
 msgid "Version number"
 msgstr ""
 
-#: ../browser/viewlets.py:42
+#: ../browser/viewlets.py:47
 msgid "Versions"
 msgstr ""
 
