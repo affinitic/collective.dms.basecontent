@@ -54,7 +54,7 @@ class DmsFile(Item):
     def Title(self):
         if self.incomingmail:
             return _(u"Incoming mail")
-        elif self.signed:
+        elif hasattr(self, 'signed') and self.signed:
             return _(u"Signed version")
         else:
             return self.title
