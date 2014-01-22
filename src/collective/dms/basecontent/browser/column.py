@@ -119,7 +119,7 @@ class DeleteColumn(IconColumn, LinkColumn):
     linkName = "delete_confirmation"
     linkContent = PMF('Delete')
     linkCSS = 'edm-delete-popup'
-    iconName = "delete_icon.png"
+    iconName = "++resource++delete_icon.png"
     linkContent = PMF(u"Delete")
 
     def actionAvailable(self, item):

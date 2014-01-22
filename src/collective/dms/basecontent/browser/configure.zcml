@@ -23,6 +23,11 @@
       image="static/img/extedit_icon.png"
       />
 
+  <browser:resource
+      name="delete_icon.png"
+      image="static/img/delete_icon.png"
+      />
+
   <browser:page
       for="collective.dms.basecontent.dmsdocument.IDmsDocument"
       name="view"
