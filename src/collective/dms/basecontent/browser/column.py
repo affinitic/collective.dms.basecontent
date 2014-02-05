@@ -105,6 +105,8 @@ class TitleColumn(LinkColumn):
 
 
 class IconColumn(object):
+    cssClasses = {'td': 'icon-column'}
+
     def getLinkContent(self, item):
         content = super(IconColumn, self).getLinkContent(item)
         return u"""<img title="%s" src="%s" />""" % (
