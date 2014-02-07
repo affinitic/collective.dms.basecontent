@@ -57,8 +57,9 @@
 
     </div>
 
-    <div style="clear:left" />
+    <div style="clear:left" id="document-viewlets">
     <tal:belowcontent replace="structure provider:dms.belowcontent" />
+    </div>
     <div style="clear:both" />
 
   </metal:content-core>
