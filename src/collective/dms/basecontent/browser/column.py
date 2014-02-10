@@ -29,7 +29,11 @@ def get_value(item, attribute, default=None):
         if value is Missing.Value:
             return default
     except AttributeError:
-        obj = item.getObject()
+        try:
+            obj = item.getObject()
+        except KeyError:
+            # ouch
+            return '-'
         value = getattr(obj, attribute, default)
 
     if callable(value):
@@ -125,7 +129,11 @@ class DeleteColumn(IconColumn, LinkColumn):
     linkContent = PMF(u"Delete")
 
     def actionAvailable(self, item):
-        obj = item.getObject()
+        try:
+            obj = item.getObject()
+        except KeyError:
+            # ouch
+            return False
         sm = getSecurityManager()
         return sm.checkPermission('Delete objects', obj)
 
@@ -154,7 +162,11 @@ class ExternalEditColumn(IconColumn, LinkColumn):
     linkContent = PMF(u"Edit with external application")
 
     def actionAvailable(self, item):
-        obj = item.getObject()
+        try:
+            obj = item.getObject()
+        except KeyError:
+            # ouch
+            return False
         sm = getSecurityManager()
         if not sm.checkPermission('Modify portal content', obj):
             return False
@@ -188,7 +200,11 @@ class EditColumn(IconColumn, LinkColumn):
     linkCSS = 'overlay-form-reload'
 
     def actionAvailable(self, item):
-        obj = item.getObject()
+        try:
+            obj = item.getObject()
+        except KeyError:
+            # ouch
+            return False
         sm = getSecurityManager()
         return sm.checkPermission('Modify portal content', obj)
 
