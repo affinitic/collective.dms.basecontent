@@ -41,7 +41,7 @@ class DmsAppendixTable(VersionsTable):
 
     def setUpColumns(self):
         columns = super(DmsAppendixTable, self).setUpColumns()
-        return [column for column in columns if column.__name__ != 'dms.state']
+        return [column for column in columns if column.__name__ not in ('dms.state', 'dms.label')]
 
 
 class TasksTable(BaseTable):
