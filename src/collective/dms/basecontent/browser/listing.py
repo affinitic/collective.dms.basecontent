@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from five import grok
 
 from zope.interface import Interface
@@ -59,6 +61,7 @@ class VersionsTitleColumn(BaseTitleColumn):
     grok.adapts(Interface, Interface, VersionsTable)
     domain = 'collective.dms.basecontent'
     linkCSS = 'version-link'
+    header = _(u"№")
 
     def getLinkContent(self, item):
         content = super(VersionsTitleColumn, self).getLinkContent(item)
