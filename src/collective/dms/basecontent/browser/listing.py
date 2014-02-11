@@ -68,6 +68,20 @@ class VersionsTitleColumn(BaseTitleColumn):
         return translate(content, domain=self.domain, context=self.request)
 
 
+class AppendixTitleColumn(column.Column):
+    grok.adapts(Interface, Interface, DmsAppendixTable)
+    grok.name('dms.title')
+    weight = 10
+    header = PMF("Title")
+
+    def renderCell(self, item):
+        title = column.get_value(item, 'Title')
+        if isinstance(title, unicode):
+            return title
+        else:
+            return unicode(title, 'utf-8', 'ignore')
+
+
 class TaskTitleColumn(BaseTitleColumn):
     grok.adapts(Interface, Interface, TasksTable)
     linkCSS = 'overlay-comment-form'
