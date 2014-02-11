@@ -5,6 +5,9 @@ from plone.principalsource.source import PrincipalSourceBinder, PrincipalSource
 
 # By default, we list groups and we can search for users in ajax
 class PrincipalSource(PrincipalSource):
+
+    BLACKLIST = ('AuthenticatedUsers', 'Administrators', 'Site Administrators', 'Reviewers')
+
     def search_principals(self, groups_first=False, **kw):
         if kw:
             results = self.acl_users.searchPrincipals(groups_first=True, **kw)
@@ -12,17 +15,20 @@ class PrincipalSource(PrincipalSource):
             # if no kw, we have been called from source __iter__ because
             # of Chosen widget populate_select attribute is set to True
             results = self.acl_users.searchGroups()
-        return [r for r in results if r.get('groupid', None) != 'AuthenticatedUsers']
+        return [r for r in results if r.get('groupid', None) not in self.BLACKLIST]
+
+    def searchGroups(self, **kwargs):
+        result = self.acl_users.searchGroups(**kwargs)
+        return [x for x in result if x['id'] not in self.BLACKLIST]
 
     @property
     def _search(self):
         if self.users and self.groups:
-#            return self.acl_users.searchPrincipals
             return self.search_principals
         elif self.users:
             return self.acl_users.searchUsers
         elif self.groups:
-            return self.acl_users.searchGroups
+            return self.searchGroups
 
 
 class PrincipalSourceBinder(PrincipalSourceBinder):
