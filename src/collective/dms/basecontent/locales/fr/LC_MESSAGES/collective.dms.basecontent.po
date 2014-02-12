@@ -111,7 +111,7 @@ msgstr "Il n'y a aucune demande de validation"
 
 #: ../browser/viewlets.py:48
 msgid "There is no version note for this document."
-msgstr "Il n'y a aucun fichier ged."
+msgstr "Aucune version n'a encore été créée pour ce document."
 
 #: ../browser/listing.py:122
 msgid "To read"
