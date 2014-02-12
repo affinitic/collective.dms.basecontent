@@ -30,7 +30,7 @@ msgstr "Date de création"
 
 #: ../browser/listing.py:148
 msgid "Deadline"
-msgstr "Echéance"
+msgstr "Échéance"
 
 #: ../browser/column.py:143
 msgid "Download file"
