@@ -22,6 +22,14 @@ class Column(z3c.table.column.Column, grok.MultiAdapter):
     grok.baseclass()
     grok.provides(interfaces.IColumn)
 
+    def renderHeadCell(self):
+        if not self.header:
+            return ''
+        if not hasattr(self, 'attribute'):
+            return translate(self.header, context=self.request)
+        return '<span data-sortable="%s">%s</span>' % (self.attribute,
+                translate(self.header, context=self.request))
+
 
 def get_value(item, attribute, default=None):
     try:
@@ -94,6 +102,15 @@ class LinkColumn(z3c.table.column.LinkColumn, Column):
             return '%s/%s' % (item.getURL(), self.linkName)
         return item.getURL()
 
+    def renderHeadCell(self):
+        if not self.header:
+            return ''
+        if not hasattr(self, 'attribute'):
+            return translate(self.header, context=self.request)
+        return '<span data-sortable="%s">%s</span>' % (self.attribute,
+                translate(self.header, context=self.request))
+
+
 
 class TitleColumn(LinkColumn):
     grok.baseclass()
@@ -106,6 +123,10 @@ class TitleColumn(LinkColumn):
             return title
         else:
             return unicode(title, 'utf-8', 'ignore')
+
+    def renderHeadCell(self):
+        return '<span data-sortable="sortable_title">%s</span>' % (
+                translate(self.header, context=self.request))
 
 
 class IconColumn(object):
@@ -232,6 +253,10 @@ class StateColumn(Column):
             return translate(PMF(state_title), context=self.request)
         except WorkflowException:
             return u""
+
+    def renderHeadCell(self):
+        return '<span data-sortable="review_state">%s</span>' % (
+                translate(self.header, context=self.request))
 
 
 class LabelColumn(Column):
