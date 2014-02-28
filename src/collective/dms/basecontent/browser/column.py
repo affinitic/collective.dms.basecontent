@@ -139,6 +139,16 @@ class IconColumn(object):
                 '%s/%s' % (self.table.portal_url, self.iconName))
 
 
+class ColourColumn(Column):
+    grok.baseclass()
+    header = u""
+    weight = -1
+    cssClasses = {'td': 'colour-column'}
+
+    def renderCell(self, item):
+        return u""
+
+
 class DeleteColumn(IconColumn, LinkColumn):
     grok.baseclass()
     header = u""

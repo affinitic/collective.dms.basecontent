@@ -52,6 +52,12 @@ class InformationsTable(TasksTable):
     pass
 
 
+
+class ColourColumn(column.ColourColumn):
+    grok.name('dms.colour')
+    grok.adapts(Interface, Interface, BaseTable)
+
+
 class BaseTitleColumn(column.TitleColumn):
     grok.name('dms.title')
     grok.adapts(Interface, Interface, BaseTable)
