@@ -90,7 +90,7 @@ class PrincipalColumn(Column):
             else:
                 principals.append(unicode(principal_id))
 
-        return ', '.join(principals).decode('utf-8')
+        return ', '.join(principals)
 
 
 class LinkColumn(z3c.table.column.LinkColumn, Column):
