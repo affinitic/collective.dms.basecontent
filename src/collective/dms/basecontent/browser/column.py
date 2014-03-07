@@ -9,6 +9,8 @@ from zope.i18n import translate
 import z3c.table.table
 import z3c.table.column
 from Products.CMFCore.WorkflowCore import WorkflowException
+from zope.schema.interfaces import IVocabularyFactory
+from zope.component import getUtility
 import plone.api
 
 from collective.dms.basecontent import _
@@ -78,17 +80,15 @@ class PrincipalColumn(Column):
         if not isinstance(value, (list, tuple)):
             value = (value,)
 
-        gtool = getToolByName(plone.api.portal.get(), 'portal_groups')
-        mtool = getToolByName(plone.api.portal.get(), 'portal_membership')
+        factory = getUtility(IVocabularyFactory, 'plone.principalsource.Principals')
+        principals_vocab = factory(self.context)
+
         principals = []
         for principal_id in value:
-            user = mtool.getMemberById(principal_id)
-            if user is not None:
-                principals.append(user.getProperty('fullname', None) or user.getId())
+            if principal_id in principals_vocab:
+                principals.append(principals_vocab.getTermByToken(principal_id).title)
             else:
-                group = gtool.getGroupById(principal_id)
-                if group is not None:
-                    principals.append(group.getProperty('title', None) or group.getId())
+                principals.append(unicode(principal_id))
 
         return ', '.join(principals).decode('utf-8')
 
