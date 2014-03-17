@@ -1,5 +1,6 @@
 import tempfile
 
+from Acquisition import aq_parent
 from BTrees.Length import Length
 
 from five import grok
@@ -8,6 +9,7 @@ from zope import schema
 from zope.annotation.interfaces import IAnnotations
 from zope.interface import implements
 from zope.lifecycleevent.interfaces import IObjectAddedEvent
+from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 
 from plone.autoform import directives as form
 from plone.dexterity.content import Item
@@ -159,3 +161,9 @@ class DmsFileWriteFile(DefaultWriteFile):
         self._message = self._parser.close()
         self._closed = True
         self.context.file.data = self._message.get_payload()
+
+
+@grok.subscribe(IDmsFile, IObjectModifiedEvent)
+def reindex_document_on_changed_file(context, event):
+    document = aq_parent(context)
+    document.reindexObject()
