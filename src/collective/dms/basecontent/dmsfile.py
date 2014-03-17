@@ -166,4 +166,7 @@ class DmsFileWriteFile(DefaultWriteFile):
 @grok.subscribe(IDmsFile, IObjectModifiedEvent)
 def reindex_document_on_changed_file(context, event):
     document = aq_parent(context)
-    document.reindexObject()
+    try:
+        document.reindexObject()
+    except:
+        pass
