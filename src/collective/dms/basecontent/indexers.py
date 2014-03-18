@@ -1,3 +1,5 @@
+import logging
+
 from ZODB.POSException import ConflictError
 from five import grok
 from Products.CMFCore.utils import getToolByName
@@ -34,6 +36,10 @@ def document_dynamic_searchable_text_indexer(obj):
                 indexed_elements.append(unicode(datastream.getData(), 'utf-8'))
             except (ConflictError, KeyboardInterrupt):
                 raise
+            except Exception as e:
+                # ignore transformation errors, too bad
+                log = logging.getLogger('collective.dms.basecontent')
+                log.exception(e)
 
     return u' '.join(indexed_elements)
 
