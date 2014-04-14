@@ -125,7 +125,7 @@ class UpdateColumn(column.DateColumn):
     grok.name('dms.update')
     grok.adapts(Interface, Interface, VersionsTable)
     header = PMF(u"listingheader_modified")
-    attribute = 'modification_date'
+    attribute = 'modified'
     weight = 40
 
 
