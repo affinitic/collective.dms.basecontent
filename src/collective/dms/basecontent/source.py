@@ -1,3 +1,6 @@
+import re
+import unicodedata
+
 from five import grok
 from zope.schema.interfaces import IVocabularyFactory
 from plone.principalsource.source import PrincipalSourceBinder, PrincipalSource
@@ -35,6 +38,11 @@ class PrincipalSource(PrincipalSource):
             return self.acl_users.searchUsers
         elif self.groups:
             return self.searchGroups
+
+    def search(self, query_string):
+        query_string = unicodedata.normalize('NFKD', query_string).encode('ascii', 'ignore').decode('ascii')
+        query_string = re.sub('[^\w\s-]', '', query_string).strip().lower()
+        return super(PrincipalSource, self).search(query_string)
 
 
 class PrincipalSourceBinder(PrincipalSourceBinder):
