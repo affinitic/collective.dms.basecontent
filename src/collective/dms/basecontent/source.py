@@ -8,6 +8,8 @@ class PrincipalSource(PrincipalSource):
 
     BLACKLIST = ('AuthenticatedUsers', 'Administrators', 'Site Administrators', 'Reviewers')
 
+    extra_default_values = None
+
     def search_principals(self, groups_first=False, **kw):
         if kw:
             results = self.acl_users.searchPrincipals(groups_first=True, **kw)
@@ -15,6 +17,10 @@ class PrincipalSource(PrincipalSource):
             # if no kw, we have been called from source __iter__ because
             # of Chosen widget populate_select attribute is set to True
             results = self.acl_users.searchGroups()
+            if self.extra_default_values:
+                # cf widget.py, CustomAjaxChosenMultiSelectionWidget::source
+                results = list(results)
+                results.extend(self.acl_users.searchUsers(id=self.extra_default_values))
         return [r for r in results if r.get('groupid', None) not in self.BLACKLIST]
 
     def searchGroups(self, **kwargs):
