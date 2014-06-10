@@ -1,4 +1,5 @@
 import logging
+import time
 
 from ZODB.POSException import ConflictError
 from five import grok
@@ -9,6 +10,7 @@ from .dmsdocument import IDmsDocument
 
 @indexer(IDmsDocument)
 def document_dynamic_searchable_text_indexer(obj):
+    t0 = time.time()
     indexed_elements = [obj.title]
 
     # if there is no path to text/plain, do nothing
@@ -41,6 +43,7 @@ def document_dynamic_searchable_text_indexer(obj):
                 log = logging.getLogger('collective.dms.basecontent')
                 log.exception(e)
 
+    log.info('indexed %r, %.2f seconds' % (obj.id, time.time()-t0))
     return u' '.join(indexed_elements)
 
 grok.global_adapter(document_dynamic_searchable_text_indexer,
