@@ -275,6 +275,6 @@ class LabelColumn(Column):
 
     def renderCell(self, item):
         value = get_value(item, self.attribute)
-        if value is None:
+        if value is None or value == 'None':
             value = ''
         return value
