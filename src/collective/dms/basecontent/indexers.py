@@ -43,6 +43,7 @@ def document_dynamic_searchable_text_indexer(obj):
                 log = logging.getLogger('collective.dms.basecontent')
                 log.exception(e)
 
+    log = logging.getLogger('collective.dms.basecontent')
     log.info('indexed %r, %.2f seconds' % (obj.id, time.time()-t0))
     return u' '.join(indexed_elements)
 
