@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.dms.basecontent\n"
-"POT-Creation-Date: 2013-10-12 10:10+0000\n"
-"PO-Revision-Date: 2013-10-09 09:04+0100\n"
+"POT-Creation-Date: 2014-07-04 08:37+0000\n"
+"PO-Revision-Date: 2014-07-04 10:38+0200\n"
 "Last-Translator: Cédric Messiant <cedric.messiant@gmail.com>\n"
 "Language-Team: Ecréall\n"
 "MIME-Version: 1.0\n"
@@ -16,35 +16,39 @@ msgstr ""
 "X-is-fallback-for: fr-fr fr-be fr-ca\n"
 "X-Generator: Poedit 1.5.4\n"
 
+#: ../dmsfile.py:61
+msgid "${title} (signed version)"
+msgstr "${title} (version signée)"
+
 #: ../browser/viewlets.py:60
 msgid "Appendix"
 msgstr "Annexes"
 
-#: ../browser/listing.py:96
+#: ../browser/listing.py:119
 msgid "Author"
 msgstr "Auteur"
 
-#: ../browser/listing.py:155
+#: ../browser/listing.py:178
 msgid "Creation date"
 msgstr "Date de création"
 
-#: ../browser/listing.py:148
+#: ../browser/listing.py:171
 msgid "Deadline"
 msgstr "Échéance"
 
-#: ../browser/column.py:143
+#: ../browser/column.py:184
 msgid "Download file"
 msgstr "Télécharger"
 
-#: ../browser/listing.py:132
+#: ../browser/listing.py:155
 msgid "Enquirer"
 msgstr "Demandeur"
 
-#: ../dmsfile.py:33
+#: ../dmsfile.py:35
 msgid "File"
 msgstr "Fichier"
 
-#: ../dmsfile.py:56
+#: ../dmsfile.py:59
 msgid "Incoming mail"
 msgstr "courrier entrant"
 
@@ -52,8 +56,8 @@ msgstr "courrier entrant"
 msgid "Informations"
 msgstr "Transmissions pour information"
 
-#: ../browser/listing.py:164
-#: ../dmsfile.py:38
+#: ../browser/listing.py:187
+#: ../dmsfile.py:40
 msgid "Label"
 msgstr "Intitulé"
 
@@ -65,7 +69,7 @@ msgstr "Notes"
 msgid "Opinion applications"
 msgstr "Demandes d'avis"
 
-#: ../browser/listing.py:123
+#: ../browser/listing.py:146
 msgid "Read"
 msgstr "Lu"
 
@@ -77,11 +81,11 @@ msgstr "Services à informer"
 msgid "Related documents"
 msgstr "Documents en rapport"
 
-#: ../browser/listing.py:140
+#: ../browser/listing.py:163
 msgid "Responsible"
 msgstr "Destinataire"
 
-#: ../dmsfile.py:43
+#: ../dmsfile.py:45
 msgid "Signed version"
 msgstr "Version signée"
 
@@ -113,7 +117,7 @@ msgstr "Il n'y a aucune demande de validation"
 msgid "There is no version note for this document."
 msgstr "Aucune version n'a encore été créée pour ce document."
 
-#: ../browser/listing.py:122
+#: ../browser/listing.py:145
 msgid "To read"
 msgstr "À lire"
 
@@ -125,11 +129,15 @@ msgstr "Services en charge du traitement"
 msgid "Validation applications"
 msgstr "Demandes de validation"
 
-#: ../dmsfile.py:26
+#: ../dmsfile.py:28
 msgid "Version number"
 msgstr "Numéro de version"
 
 #: ../browser/viewlets.py:47
 msgid "Versions"
 msgstr "Versions"
+
+#: ../browser/listing.py:70
+msgid "№"
+msgstr "№"
 

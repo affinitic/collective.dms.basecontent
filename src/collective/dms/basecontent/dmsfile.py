@@ -57,7 +57,7 @@ class DmsFile(Item):
         if self.incomingmail:
             return _(u"Incoming mail")
         elif hasattr(self, 'signed') and self.signed:
-            return _(u"Signed version")
+            return _(u"${title} (signed version)", mapping={'title': self.title})
         else:
             return self.title
 
