@@ -145,7 +145,11 @@ class InformationStateColumn(column.StateColumn):
         title_mapping = {'todo': _(u'To read'),
                          'done': _(u'Read')
                          }
-        state_title = title_mapping[item.review_state]
+        if callable(item.review_state):
+            review_state = item.review_state()
+        else:
+            review_state = item.review_state
+        state_title = title_mapping[review_state]
         return translate(_(state_title), context=self.request)
 
 
