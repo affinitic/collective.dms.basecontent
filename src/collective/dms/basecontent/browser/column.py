@@ -116,6 +116,7 @@ class TitleColumn(LinkColumn):
     grok.baseclass()
     header = PMF("Title")
     weight = 10
+    cssClasses = {'td': 'title-column'}
 
     def getLinkContent(self, item):
         title = get_value(item, 'Title')
