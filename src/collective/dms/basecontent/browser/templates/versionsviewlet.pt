@@ -1,4 +1,4 @@
-<div id="fieldset-versions" style="float:right; width: 50%;">
+<div id="fieldset-versions">
 <fieldset>
   <legend i18n:translate=""
     tal:content="viewlet/label">label</legend>
