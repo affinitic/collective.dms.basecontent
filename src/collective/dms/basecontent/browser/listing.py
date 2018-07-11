@@ -34,10 +34,15 @@ class BaseTable(Table):
 
 
 class VersionsTable(BaseTable):
-    pass
+    @CachedProperty
+    def values(self):
+        return [x for x in self.context.getFolderContents() if x.portal_type == 'dmsmainfile']
 
 
 class DmsAppendixTable(VersionsTable):
+    @CachedProperty
+    def values(self):
+        return [x for x in self.context.getFolderContents() if x.portal_type == 'dmsappendixfile']
 
     def setUpColumns(self):
         columns = super(DmsAppendixTable, self).setUpColumns()
