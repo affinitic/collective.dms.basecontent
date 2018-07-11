@@ -100,5 +100,13 @@ class Table(z3c.table.table.Table):
             if state_value:
                 cssClass += ' row-state-%s' % state_value
 
+        from pfwbged.collection.searchview import TaskTypeColumn
+        type_column = [x for x in row if isinstance(x[1], TaskTypeColumn)]
+        if type_column:
+            type_column = type_column[0]
+            type_value = get_value(type_column[0], 'portal_type')
+            if type_value:
+                cssClass += ' row-type-%s' % type_value
+
         cssClass = self.getCSSClass('tr', cssClass)
         return u'\n    <tr%s>%s\n    </tr>' % (cssClass, u''.join(cells))
