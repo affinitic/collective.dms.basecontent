@@ -168,7 +168,16 @@ class ColourColumn(Column):
     cssClasses = {'td': 'colour-column'}
 
     def renderCell(self, item):
-        return u""
+        if hasattr(item, 'path_string'):
+            path = item.path_string
+        else:
+            path = item.getPath()
+        if item.portal_type in ('opinion', 'validation'):
+            return u''
+        return u"""<label><input type="checkbox" data-value="%s"></label>""" % path
+
+    def renderHeadCell(self):
+        return u"""<span class="colour-column-head"></span>"""
 
 
 class DeleteColumn(IconColumn, LinkColumn):
