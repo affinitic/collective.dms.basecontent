@@ -12,6 +12,7 @@ from Products.CMFCore.WorkflowCore import WorkflowException
 from zope.schema.interfaces import IVocabularyFactory
 from zope.component import getUtility
 import plone.api
+from plone.memoize import ram
 
 from collective.dms.basecontent import _
 
@@ -33,6 +34,11 @@ class Column(z3c.table.column.Column, grok.MultiAdapter):
                 translate(self.header, context=self.request))
 
 
+def _get_value_cachekey(method, item, attribute, default=None):
+    return (item.getPath(), item.modified, attribute, default)
+
+
+@ram.cache(_get_value_cachekey)
 def get_value(item, attribute, default=None):
     try:
         value = getattr(item, attribute)
@@ -50,6 +56,20 @@ def get_value(item, attribute, default=None):
         value = value()
 
     return value
+
+
+def _get_object_cachekey(method, item):
+    return (item.getPath(), item.modified)
+
+@ram.cache(_get_object_cachekey)
+def get_object(item):
+    try:
+        obj = item.getObject()
+    except KeyError:
+        # ouch
+        return None
+    else:
+        return obj
 
 
 class DateColumn(Column):
@@ -161,10 +181,8 @@ class DeleteColumn(IconColumn, LinkColumn):
     linkContent = PMF(u"Delete")
 
     def actionAvailable(self, item):
-        try:
-            obj = item.getObject()
-        except KeyError:
-            # ouch
+        obj = get_object(item)
+        if not obj:
             return False
         sm = getSecurityManager()
         return sm.checkPermission('Delete objects', obj)
@@ -194,10 +212,8 @@ class ExternalEditColumn(IconColumn, LinkColumn):
     linkContent = PMF(u"Edit with external application")
 
     def actionAvailable(self, item):
-        try:
-            obj = item.getObject()
-        except KeyError:
-            # ouch
+        obj = get_object(item)
+        if not obj:
             return False
         sm = getSecurityManager()
         if not sm.checkPermission('Modify portal content', obj):
@@ -232,10 +248,8 @@ class EditColumn(IconColumn, LinkColumn):
     linkCSS = 'overlay-form-reload'
 
     def actionAvailable(self, item):
-        try:
-            obj = item.getObject()
-        except KeyError:
-            # ouch
+        obj = get_object(item)
+        if not obj:
             return False
         sm = getSecurityManager()
         return sm.checkPermission('Modify portal content', obj)

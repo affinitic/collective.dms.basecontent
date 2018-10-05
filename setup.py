@@ -55,6 +55,7 @@ setup(name='collective.dms.basecontent',
           'collective.z3cform.chosen',
           'collective.z3cform.rolefield',
           'z3c.table',
+          'plone.memoize',
       ],
       extras_require={
           'test': ['plone.app.testing',
