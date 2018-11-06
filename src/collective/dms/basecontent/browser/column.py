@@ -34,19 +34,19 @@ class Column(z3c.table.column.Column, grok.MultiAdapter):
                 translate(self.header, context=self.request))
 
 
-def _get_value_cachekey(method, item, attribute, default=None):
+def _get_value_cachekey(method, request, item, attribute, default=None):
     return (item.getPath(), item.modified, attribute, default)
 
 
 @ram.cache(_get_value_cachekey)
-def get_value(item, attribute, default=None):
+def get_value(request, item, attribute, default=None):
     try:
         value = getattr(item, attribute)
         if value is Missing.Value:
             return default
     except AttributeError:
         try:
-            obj = item.getObject()
+            obj = get_object(request, item)
         except KeyError:
             # ouch
             return '-'
@@ -58,11 +58,12 @@ def get_value(item, attribute, default=None):
     return value
 
 
-def _get_object_cachekey(method, item):
-    return (item.getPath(), item.modified)
+def _get_object_cachekey(method, request, item):
+    return (item.getPath(), request.__dict__)
+
 
 @ram.cache(_get_object_cachekey)
-def get_object(item):
+def get_object(request, item):
     try:
         obj = item.getObject()
     except KeyError:
@@ -77,7 +78,7 @@ class DateColumn(Column):
     attribute = NotImplemented
 
     def renderCell(self, item):
-        value = get_value(item, self.attribute)
+        value = get_value(self.request, item, self.attribute)
         return self.table.format_date(value)
 
 
@@ -86,7 +87,7 @@ class DateTimeColumn(Column):
     attribute = NotImplemented
 
     def renderCell(self, item):
-        value = get_value(item, self.attribute)
+        value = get_value(self.request, item, self.attribute)
         return self.table.format_date(value, long_format=True)
 
 
@@ -95,7 +96,7 @@ class PrincipalColumn(Column):
     attribute = NotImplemented
 
     def renderCell(self, item):
-        value = get_value(item, self.attribute, default=())
+        value = get_value(self.request, item, self.attribute, default=())
 
         if not isinstance(value, (list, tuple)):
             value = (value,)
@@ -139,7 +140,7 @@ class TitleColumn(LinkColumn):
     cssClasses = {'td': 'title-column'}
 
     def getLinkContent(self, item):
-        title = get_value(item, 'Title')
+        title = get_value(self.request, item, 'Title')
         if isinstance(title, unicode):
             return title
         else:
@@ -181,7 +182,7 @@ class DeleteColumn(IconColumn, LinkColumn):
     linkContent = PMF(u"Delete")
 
     def actionAvailable(self, item):
-        obj = get_object(item)
+        obj = get_object(self.request, item)
         if not obj:
             return False
         sm = getSecurityManager()
@@ -212,7 +213,7 @@ class ExternalEditColumn(IconColumn, LinkColumn):
     linkContent = PMF(u"Edit with external application")
 
     def actionAvailable(self, item):
-        obj = get_object(item)
+        obj = get_object(self.request, item)
         if not obj:
             return False
         sm = getSecurityManager()
@@ -248,7 +249,7 @@ class EditColumn(IconColumn, LinkColumn):
     linkCSS = 'overlay-form-reload'
 
     def actionAvailable(self, item):
-        obj = get_object(item)
+        obj = get_object(self.request, item)
         if not obj:
             return False
         sm = getSecurityManager()
@@ -269,8 +270,8 @@ class StateColumn(Column):
     def renderCell(self, item):
         try:
             wtool = self.table.wtool
-            portal_type = get_value(item, 'portal_type')
-            review_state = get_value(item, 'review_state')
+            portal_type = get_value(self.request, item, 'portal_type')
+            review_state = get_value(self.request, item, 'review_state')
             if not review_state:
                 return u""
             state_title = wtool.getTitleForStateOnType(review_state,
@@ -289,7 +290,7 @@ class LabelColumn(Column):
     attribute = NotImplemented
 
     def renderCell(self, item):
-        value = get_value(item, self.attribute)
+        value = get_value(self.request, item, self.attribute)
         if value is None or value == 'None':
             value = ''
         return value

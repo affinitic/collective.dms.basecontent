@@ -81,7 +81,7 @@ class AppendixTitleColumn(column.Column):
     header = PMF("Title")
 
     def renderCell(self, item):
-        title = column.get_value(item, 'Title')
+        title = column.get_value(self.request, item, 'Title')
         if isinstance(title, unicode):
             return title
         else:
