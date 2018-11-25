@@ -35,7 +35,10 @@ class Column(z3c.table.column.Column, grok.MultiAdapter):
 
 
 def _get_value_cachekey(method, request, item, attribute, default=None):
-    return (item.getPath(), item.modified, attribute, default)
+    if hasattr(item, 'modified'):
+        return (item.getPath(), item.modified, attribute, default)
+    else:
+        return (item.getPath(), item.ModificationDate(), attribute, default)
 
 
 @ram.cache(_get_value_cachekey)
