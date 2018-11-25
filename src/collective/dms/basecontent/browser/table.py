@@ -104,7 +104,7 @@ class Table(z3c.table.table.Table):
         type_column = [x for x in row if isinstance(x[1], TaskTypeColumn)]
         if type_column:
             type_column = type_column[0]
-            type_value = get_value(type_column[0], 'portal_type')
+            type_value = get_value(self.request, type_column[0], 'portal_type')
             if type_value:
                 cssClass += ' row-type-%s' % type_value
 
