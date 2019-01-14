@@ -13,6 +13,7 @@ from zope.schema.interfaces import IVocabularyFactory
 from zope.component import getUtility
 import plone.api
 from plone.memoize import ram
+from zope.component import queryMultiAdapter
 
 from collective.dms.basecontent import _
 
@@ -190,6 +191,20 @@ class DeleteColumn(IconColumn, LinkColumn):
     iconName = "++resource++delete_icon.png"
     linkContent = PMF(u"Delete")
 
+    def getLinkCSS(self, item):
+        obj = get_object(self.request, item)
+        view = queryMultiAdapter((obj, self.request), name='can_be_trashed')
+        if view and view.render():
+            return ''
+        return super(DeleteColumn, self).getLinkCSS(item)
+
+    def getLinkURL(self, item):
+        obj = get_object(self.request, item)
+        view = queryMultiAdapter((obj, self.request), name='can_be_trashed')
+        if view and view.render():
+            return '%s/%s' % (item.getURL(), 'redirect_to_dmsdocument?workflow_action=send_to_trash')
+        return super(DeleteColumn, self).getLinkURL(item)
+
     def actionAvailable(self, item):
         obj = get_object(self.request, item)
         if not obj:
@@ -200,6 +215,10 @@ class DeleteColumn(IconColumn, LinkColumn):
     def renderCell(self, item):
         if not self.actionAvailable(item):
             return u""
+
+        obj = get_object(self.request, item)
+        if plone.api.content.get_state(obj) == 'trashed':
+            return '<span>DEL</span>'
 
         return super(DeleteColumn, self).renderCell(item)
 
