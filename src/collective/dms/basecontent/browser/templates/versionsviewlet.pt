@@ -37,7 +37,7 @@ $(document).ready(function(){
     function async_load_dv() {
       // click on the first version if no version was selected by the user
       // within the 6s.
-      $(".version-link:first").closest('tr').trigger('select-version');
+      $(".version-link:last").closest('tr').trigger('select-version');
     }
 
     if (window.documentData && window.documentData.pages == null) {
@@ -46,7 +46,7 @@ $(document).ready(function(){
     } else {
       // window.documentData is already filled, we don't need to call @@dvdata
       // So we mark it as selected before triggering the select-version event.
-      $(".version-link:first").closest('tr').addClass('selected').trigger('select-version');
+      $(".version-link:last").closest('tr').addClass('selected').trigger('select-version');
     }
 
     $(".version-link").closest('tr').click(function(){
