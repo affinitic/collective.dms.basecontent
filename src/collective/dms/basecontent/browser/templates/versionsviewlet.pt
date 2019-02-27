@@ -45,8 +45,7 @@ $(document).ready(function(){
       initial_timeout = setTimeout(async_load_dv, 6000);
     } else {
       // window.documentData is already filled, we don't need to call @@dvdata
-      // So we mark it as selected before triggering the select-version event.
-      $(".version-link:last").closest('tr').addClass('selected').trigger('select-version');
+      $(".version-link:last").closest('tr').trigger('select-version');
     }
 
     $(".version-link").closest('tr').click(function(){
