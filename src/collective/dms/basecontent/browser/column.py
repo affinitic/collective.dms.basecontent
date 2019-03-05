@@ -217,7 +217,7 @@ class DeleteColumn(IconColumn, LinkColumn):
             return u""
 
         obj = get_object(self.request, item)
-        if plone.api.content.get_state(obj) == 'trashed':
+        if plone.api.content.get_state(obj, None) == 'trashed':
             return '<span>DEL</span>'
 
         return super(DeleteColumn, self).renderCell(item)
