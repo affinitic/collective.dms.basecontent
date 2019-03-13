@@ -114,12 +114,20 @@ msgstr ""
 msgid "There is no version note for this document."
 msgstr ""
 
-#: ../browser/listing.py:122
+#: ../related-docs-display.pt:21
+msgid "Title"
+msgstr ""
+
+#: ../browser/listing.py:150
 msgid "To read"
 msgstr ""
 
 #: ../dmsdocument.py:24
 msgid "Treating groups"
+msgstr ""
+
+#: ../related-docs-display.pt:20
+msgid "Type"
 msgstr ""
 
 #: ../browser/viewlets.py:92

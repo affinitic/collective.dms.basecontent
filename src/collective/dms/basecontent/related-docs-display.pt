@@ -1,4 +1,5 @@
 <span id="" class=""
+      i18n:domain="collective.dms.basecontent"
       tal:attributes="id view/id;
                       class view/klass;
                       style view/style;
@@ -13,12 +14,24 @@
                       onmouseout view/onmouseout;
                       onkeypress view/onkeypress;
                       onkeydown view/onkeydown;
-                      onkeyup view/onkeyup"><tal:block
-    tal:repeat="value view/tuples"
-    ><a class="selected-option"
-        href="#"
-        tal:content="python:value[1]"
-        tal:attributes="href python:value[0]"
-    /><tal:block condition="not:repeat/value/end">, </tal:block
-  ></tal:block
-></span>
+                      onkeyup view/onkeyup">
+    <table class="listing nosort">
+        <thead>
+            <th i18n:translate="">Type</th>
+            <th i18n:translate="">Title</th>
+        </thead>
+        <tbody>
+        <tal:repeat tal:repeat="value view/tuples">
+            <tr tal:define="oddrow repeat/value/odd"
+                tal:attributes="class python:'odd' if oddrow else 'even'">
+                <td tal:content="python:value[2]" />
+                <td>
+                    <a href="#"
+                       tal:content="python:value[1]"
+                       tal:attributes="href python:value[0]"/>
+                </td>
+            </tr>
+        </tal:repeat>
+        </tbody>
+    </table>
+</span>

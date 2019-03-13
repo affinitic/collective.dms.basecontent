@@ -117,13 +117,21 @@ msgstr "Il n'y a aucune demande de validation"
 msgid "There is no version note for this document."
 msgstr "Aucune version n'a encore été créée pour ce document."
 
-#: ../browser/listing.py:145
+#: ../related-docs-display.pt:21
+msgid "Title"
+msgstr "Titre"
+
+#: ../browser/listing.py:150
 msgid "To read"
 msgstr "À lire"
 
 #: ../dmsdocument.py:24
 msgid "Treating groups"
 msgstr "Services en charge du traitement"
+
+#: ../related-docs-display.pt:20
+msgid "Type"
+msgstr "Type"
 
 #: ../browser/viewlets.py:92
 msgid "Validation applications"
