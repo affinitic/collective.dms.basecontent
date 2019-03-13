@@ -33,6 +33,11 @@ class RelatedDocsWidget(MultiContentTreeWidget):
         term = self.terms.getTermByToken(v)
         return term.title
 
+    def get_content_type(self, v):
+        portal = self.context.portal_url.getPortalObject()
+        document = portal.unrestrictedTraverse(v)
+        return document.Type()
+
     def update(self):
         super(RelatedDocsWidget, self).update()
         if self.mode == 'display':
@@ -42,7 +47,11 @@ class RelatedDocsWidget(MultiContentTreeWidget):
 
     @CachedProperty
     def tuples(self):
-        refs = [(self.get_url(x), self.get_label(x)) for x in self.value]
+        refs = [(
+            self.get_url(x),
+            self.get_label(x),
+            self.get_content_type(x),
+        ) for x in self.value]
         if self.display_backrefs:
             intids = getUtility(IIntIds)
             catalog = getUtility(ICatalog)
@@ -57,7 +66,7 @@ class RelatedDocsWidget(MultiContentTreeWidget):
                     if not sm.checkPermission('View', obj):
                         continue
                     url = self.get_url(ref.from_path)
-                    tp = (url, obj.Title())
+                    tp = (url, obj.Title(), obj.Type())
                     if tp not in refs:
                         refs.append(tp)
         return refs
