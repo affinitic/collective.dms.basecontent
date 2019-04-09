@@ -93,6 +93,14 @@ class Table(z3c.table.table.Table):
         cells = [self.renderCell(item, col, colspan)
                  for item, col, colspan in row]
 
+        for index in (
+                'can_last_version_validate',
+                'has_last_version_accept',
+                'has_last_version_refuse',
+        ):
+            if getattr(item, index, False):
+                cssClass += ' row-state-%s' % index
+
         state_column = [x for x in row if isinstance(x[1], StateColumn)]
         if state_column:
             state_column = state_column[0]
