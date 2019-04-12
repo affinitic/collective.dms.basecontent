@@ -12,7 +12,9 @@ from Products.CMFCore.utils import getToolByName
 from collective.dms.basecontent import _
 from collective.dms.basecontent.browser import column
 from collective.dms.basecontent.browser.table import Table
-
+from collective.dms.basecontent.browser.column import IconColumn
+from collective.dms.basecontent.browser.column import LinkColumn
+from collective.dms.basecontent.browser.column import get_object
 
 grok.templatedir('templates')
 
@@ -195,3 +197,27 @@ class VersionLabelColumn(column.LabelColumn):
     attribute = 'label'
     header = _(u"Label")
     weight = 15
+
+
+class AppendixRestoreColumn(IconColumn, LinkColumn):
+    grok.adapts(Interface, Interface, DmsAppendixTable)
+    grok.name('dms.restore')
+    weight = 9
+    header = u''
+    iconName = '++resource++restore_icon.png'
+    linkName = 'redirect_to_dmsdocument?workflow_action=restore_from_trash'
+    linkContent = PMF(u"Restore")
+
+    def actionAvailable(self, item):
+        obj = get_object(self.request, item)
+        if not obj:
+            return False
+        wf_tool = getToolByName(obj, 'portal_workflow')
+        workflowActions = wf_tool.listActionInfos(object=obj)
+        return 'restore_from_trash' in [x.get('id') for x in workflowActions]
+
+    def renderCell(self, item):
+        if not self.actionAvailable(item):
+            return u""
+
+        return super(AppendixRestoreColumn, self).renderCell(item)

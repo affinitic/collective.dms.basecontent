@@ -187,24 +187,32 @@ class ColourColumn(Column):
 class DeleteColumn(IconColumn, LinkColumn):
     grok.baseclass()
     header = u""
-    weight = 9
+    weight = 8
     linkName = "delete_confirmation"
-    linkContent = PMF('Delete')
     linkCSS = 'edm-delete-popup'
-    iconName = "++resource++delete_icon.png"
-    linkContent = PMF(u"Delete")
 
-    def getLinkCSS(self, item):
+    def can_be_trashed(self, item):
         obj = get_object(self.request, item)
         view = queryMultiAdapter((obj, self.request), name='can_be_trashed')
-        if view and view.render():
+        return view and view.render()
+
+    def getLinkContent(self, item):
+        obj = get_object(self.request, item)
+        is_trashed = plone.api.content.get_state(obj, None) == 'trashed'
+        alt = PMF(u"Delete forever") if is_trashed else PMF(u"Delete")
+        iconName = '++resource++delete_forever_icon.png' if is_trashed else '++resource++delete_icon.png'
+        content = translate(alt, context=self.request)
+        return u"""<img title="%s" src="%s" />""" % (
+            content,
+            '%s/%s' % (self.table.portal_url, iconName))
+
+    def getLinkCSS(self, item):
+        if self.can_be_trashed(item):
             return ''
         return super(DeleteColumn, self).getLinkCSS(item)
 
     def getLinkURL(self, item):
-        obj = get_object(self.request, item)
-        view = queryMultiAdapter((obj, self.request), name='can_be_trashed')
-        if view and view.render():
+        if self.can_be_trashed(item):
             return '%s/%s' % (item.getURL(), 'redirect_to_dmsdocument?workflow_action=send_to_trash')
         return super(DeleteColumn, self).getLinkURL(item)
 
@@ -218,10 +226,6 @@ class DeleteColumn(IconColumn, LinkColumn):
     def renderCell(self, item):
         if not self.actionAvailable(item):
             return u""
-
-        obj = get_object(self.request, item)
-        if plone.api.content.get_state(obj, None) == 'trashed':
-            return '<span>DEL</span>'
 
         return super(DeleteColumn, self).renderCell(item)
 
