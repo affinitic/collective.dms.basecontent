@@ -28,6 +28,16 @@
       image="static/img/delete_icon.png"
       />
 
+  <browser:resource
+      name="delete_forever_icon.png"
+      image="static/img/delete_forever_icon.png"
+      />
+
+  <browser:resource
+      name="restore_icon.png"
+      image="static/img/restore_icon.png"
+      />
+
   <browser:page
       for="collective.dms.basecontent.dmsdocument.IDmsDocument"
       name="view"
