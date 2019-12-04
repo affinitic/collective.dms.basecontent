@@ -1,9 +1,17 @@
 import re
 import unicodedata
+from time import time
 
+from Products.LDAPMultiPlugins.interfaces import ILDAPMultiPlugin
 from five import grok
+from plone import api
+from plone.memoize import ram
+from plone.principalsource.source import PrincipalSource
+from plone.principalsource.source import PrincipalSourceBinder
+from z3c.formwidget.query.interfaces import IQuerySource
+from zope.interface import implements
 from zope.schema.interfaces import IVocabularyFactory
-from plone.principalsource.source import PrincipalSourceBinder, PrincipalSource
+from zope.schema.vocabulary import SimpleTerm
 
 
 # By default, we list groups and we can search for users in ajax
@@ -81,3 +89,85 @@ class RecipientGroupsVocabulary(grok.GlobalUtility):
 #        principals = queryUtility(IVocabularyFactory, name=u'plone.principalsource.Principals')
         principals = PrincipalSourceBinder(users=True, groups=True)
         return principals(context)
+
+
+class LDAPEmailsVocabulary(grok.GlobalUtility):
+    """Vocabulary for LDAP Emails"""
+    grok.name('collective.dms.basecontent.ldap_emails')
+    grok.implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        return LDAPEmailSource()
+
+
+class LDAPEmailSource(object):
+    implements(IQuerySource)
+
+    def __init__(self):
+        portal = api.portal.get()
+        ldap_plugins = [obj for obj in portal.acl_users.objectValues()
+                        if ILDAPMultiPlugin.providedBy(obj)]
+        if ldap_plugins:
+            self.ldap_plugin = ldap_plugins[0]
+            self.user_folder = self.ldap_plugin._getLDAPUserFolder()
+        else:
+            self.ldap_plugin = None
+            self.user_folder = None
+
+    def search(self, query_string):
+        for email in self._get_ldap_emails():
+            if query_string.lower() in email.lower():
+                yield SimpleTerm(email)
+
+    def __len__(self):
+        return len(self._get_ldap_emails())
+
+    def __iter__(self):
+        for email in self._get_ldap_emails():
+            yield SimpleTerm(email)
+
+    def __contains__(self, value):
+        try:
+            self.getTerm(value)
+        except LookupError:
+            return False
+        else:
+            return True
+
+    def getTermByToken(self, token):
+        if token in self._get_ldap_emails():
+            return SimpleTerm(token)
+        else:
+            raise LookupError(token)
+
+    def getTerm(self, value):
+        if value in self._get_ldap_emails():
+            return SimpleTerm(value)
+        else:
+            raise LookupError(value)
+
+    @ram.cache(lambda *args: time() // (60 * 60))
+    def _get_ldap_emails(self):
+        emails = set([])
+        if not self.ldap_plugin:
+            return emails
+
+        users = self.ldap_plugin.enumerateUsers()
+        for user in users:
+            email = self._get_ldap_email(user['login'])
+            if email:
+                emails.add(email)
+
+        return emails
+
+    def _get_ldap_email(self, login):
+        if not self.user_folder:
+            return None
+
+        unmangled_userid = self.ldap_plugin._demangle(login)
+        ldap_user = self.user_folder.getUserById(unmangled_userid)
+        if ldap_user is None:
+            return None
+
+        email = ldap_user._properties.get('email')
+        return email
