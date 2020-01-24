@@ -1,8 +1,10 @@
 import datetime
 
 from five import grok
+from plone.dexterity.interfaces import IDexterityFTI
 from zope.cachedescriptors.property import CachedProperty
 from zope.component import getMultiAdapter
+from zope.component import getUtility
 from zope.i18nmessageid import MessageFactory
 import z3c.table.table
 import z3c.table.column
@@ -100,6 +102,10 @@ class Table(z3c.table.table.Table):
         ):
             if getattr(item, index, False):
                 cssClass += ' row-state-%s' % index
+
+        fti = getUtility(IDexterityFTI, name=item.portal_type)
+        if 'pfwbgedlink' in getattr(fti, 'allowed_content_types', []):
+            cssClass += ' row-state-linkable'
 
         state_column = [x for x in row if isinstance(x[1], StateColumn)]
         if state_column:
