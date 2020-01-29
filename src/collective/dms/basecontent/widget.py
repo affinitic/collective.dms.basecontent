@@ -46,7 +46,7 @@ class LDAPEmailsSearch(BaseSearch):
         found = False
 
         for term in vocabulary:
-            if search_term in term.token:
+            if search_term.lower() in term.token.lower():
                 found = True
                 yield {
                     "text": term.value,
