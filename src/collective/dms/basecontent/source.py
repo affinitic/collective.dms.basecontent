@@ -31,7 +31,13 @@ class PrincipalSource(PrincipalSource):
             if self.extra_default_values:
                 # cf widget.py, CustomAjaxChosenMultiSelectionWidget::source
                 results = list(results)
-                results.extend(self.acl_users.searchUsers(id=self.extra_default_values))
+                user_ids = (
+                    [self.extra_default_values]
+                    if type(self.extra_default_values) not in (list, tuple)
+                    else self.extra_default_values
+                )
+                for user_id in user_ids:
+                    results.extend(self.acl_users.searchUsers(id=user_id))
         return [r for r in results if r.get('groupid', None) not in self.BLACKLIST]
 
     def searchGroups(self, **kwargs):
